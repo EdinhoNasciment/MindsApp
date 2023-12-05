@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MindsApp</string>
+    <string name="Type_number_BR">Digite seu número de celular</string>
 </resources>
