@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".LoginPhoneNumberActivity">
+    tools:context=".LoginOtpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="32dp"
             android:layout_margin="10dp"
             android:background="@drawable/circular_background"
-            android:backgroundTint="@color/primary">
+            android:backgroundTint="@color/light_gray">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_height="32dp"
             android:layout_margin="10dp"
             android:background="@drawable/circular_background"
-            android:backgroundTint="@color/light_gray">
+            android:backgroundTint="@color/primary">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,13 +59,13 @@
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/phone_icon"
+        android:src="@drawable/otp_icon"
         app:tint="@color/primary" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Type_number_BR"
+        android:text="@string/otp_hint"
         android:layout_gravity="center_vertical"
         android:letterSpacing="0.08"
         android:textStyle="bold"
@@ -77,21 +77,14 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/login_countrycode"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            app:ccp_showFlag="false"
-            app:ccp_showNameCode="false"/>
-
         <EditText
-            android:id="@+id/login_mobile_number"
+            android:id="@+id/login_otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:hint="Número de celular"
-            android:inputType="phone"
+            android:hint="OTP"
+            android:inputType="number"
+            android:maxLength="6"
             android:layout_margin="10dp"
             android:background="@drawable/edit_text_rounded_corner"
             android:elevation="5dp"/>
@@ -105,19 +98,26 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/send_otp_btn"
+            android:id="@+id/login_next_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MANDAR OTP"/>
+            android:text="PRÓXIMO"/>
 
         <ProgressBar
+            android:id="@+id/login_progress_bar"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/primary"
-            android:layout_gravity="center"
-            android:id="@+id/login_progress_bar"/>
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/resend_otp_textview"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/mandar_novamente_em_30_segundos"/>
 
 </LinearLayout>
