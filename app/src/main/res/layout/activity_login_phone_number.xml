@@ -83,7 +83,8 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             app:ccp_showFlag="false"
-            app:ccp_showNameCode="false"/>
+            app:ccp_showNameCode="false"
+            app:ccp_autoDetectCountry="true"/>
 
         <EditText
             android:id="@+id/login_mobile_number"
