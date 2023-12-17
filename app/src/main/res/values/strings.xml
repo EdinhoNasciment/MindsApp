@@ -2,6 +2,8 @@
     <string name="app_name">MindsApp</string>
     <string name="Type_number_BR">Digite seu número de celular</string>
     <string name="otp_hint">Insira o OTP mandado para seu celular</string>
-    <string name="mandar_novamente_em_30_segundos">Mandar novamente em 30 segundos</string>
+    <string name="mandar_novamente_em_60_segundos">Mandar novamente em 60 segundos</string>
     <string name="whats_your_username_br">Qual seu nome de usuário?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -10,16 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import br.edu.ifsp.mindsapp.model.UserModel;
+import br.edu.ifsp.mindsapp.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-
-import br.edu.ifsp.mindsapp.model.UserModel;
-import br.edu.ifsp.mindsapp.utils.AndroidUtil;
-import br.edu.ifsp.mindsapp.utils.FirebaseUtil;
 
 public class LoginUsernameActivity extends AppCompatActivity {
 
@@ -27,10 +23,7 @@ public class LoginUsernameActivity extends AppCompatActivity {
     Button letMeInBtn;
     ProgressBar progressBar;
     String phoneNumber;
-
-    UserModel usermodel;
-
-    Timestamp timestamp;
+    UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,54 +32,55 @@ public class LoginUsernameActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.login_username);
         letMeInBtn = findViewById(R.id.login_entrar_btn);
-        progressBar = findViewById(R.id.login_progress_bar);
-
+        progressBar =findViewById(R.id.login_progress_bar);
 
         phoneNumber = getIntent().getExtras().getString("phone");
         getUsername();
 
-        letMeInBtn.setOnClickListener((view -> {
+        letMeInBtn.setOnClickListener((v -> {
             setUsername();
         }));
 
+
     }
 
-    private void setUsername(){
-        setInProgress(true);
+    void setUsername(){
+
         String username = usernameInput.getText().toString();
-
-        if(username.isEmpty() || username.length()<=3){
-            usernameInput.setError("Por favor digite um nome com mais de 3 caracteres");
+        if(username.isEmpty() || username.length()<3){
+            usernameInput.setError("Nome de usuário dever ao menos 3 caracteres");
             return;
-        }if(usermodel!=null){
-            usermodel.setUsername(username);
+        }
+        setInProgress(true);
+        if(userModel!=null){
+            userModel.setUsername(username);
         }else{
-            usermodel = new UserModel(phoneNumber, username, timestamp.getTime());
+            userModel = new UserModel(phoneNumber,username, Timestamp.now(),FirebaseUtil.currentUserId());
         }
 
-    FirebaseUtil.currentUserDetails().set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-        @Override
-        public void onComplete(@NonNull Task<Void> task) {
-            setInProgress(false);
-            if (task.isSuccessful()){
-                Intent intent = new Intent(LoginUsernameActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+        FirebaseUtil.currentUserDetails().set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                setInProgress(false);
+                if(task.isSuccessful()){
+                    Intent intent = new Intent(LoginUsernameActivity.this,MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                    startActivity(intent);
+                }
             }
-        }
-    });
+        });
 
     }
 
-    private void getUsername() {
+    void getUsername(){
         setInProgress(true);
         FirebaseUtil.currentUserDetails().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 setInProgress(false);
                 if(task.isSuccessful()){
-                    UserModel userModel = task.getResult().toObject(UserModel.class);
-                    if (userModel != null){
+                    userModel =    task.getResult().toObject(UserModel.class);
+                    if(userModel!=null){
                         usernameInput.setText(userModel.getUsername());
                     }
                 }
@@ -94,15 +88,13 @@ public class LoginUsernameActivity extends AppCompatActivity {
         });
     }
 
-    private void setInProgress(boolean inProgress){
+    void setInProgress(boolean inProgress){
         if(inProgress){
             progressBar.setVisibility(View.VISIBLE);
             letMeInBtn.setVisibility(View.GONE);
-        }
-        else{
+        }else{
             progressBar.setVisibility(View.GONE);
             letMeInBtn.setVisibility(View.VISIBLE);
         }
     }
-
 }
