@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757177307986",
+    "project_id": "mindsapp-backend",
+    "storage_bucket": "mindsapp-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757177307986:android:75746d4b0c1576aaa4208b",
+        "android_client_info": {
+          "package_name": "br.edu.ifsp.mindsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo_lNkhUGbH7zM-zND8BND-3q41VcmCxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
